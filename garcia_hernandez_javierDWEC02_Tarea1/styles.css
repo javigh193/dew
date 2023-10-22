@@ -1,0 +1,13 @@
+#exer-1, #exer-2{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+[id^="exer-1."] {
+    padding: 1vw;
+}
+
+[id^="exer-2."] {
+    padding: 1vw;
+}
