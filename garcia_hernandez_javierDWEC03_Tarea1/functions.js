@@ -11,6 +11,7 @@ function openNewWindow() {
 // la ventana original a la nueva ventana
 function newWindowOnLoad() {
     document.writeln("<h3>Ejemplo de Ventana Nueva</h3>");
+    // www.google.es rechaza la conexión solicitada por el iframe
     document.write(`
         <ul>
             <li id="url-li"></li>
@@ -18,7 +19,7 @@ function newWindowOnLoad() {
             <li id="nav-code"></li>
             <li id="java-en"></li>
         </ul>
-        <iframe src="https://www.google.es/" width="800" height="600" loading="lazy"></iframe>
+        <iframe src="https://www.bing.es/" width="800" height="600" loading="lazy"></iframe>
     `);
     document.getElementById("url-li").innerHTML = "URL Completa: " + window.location.href;
     document.getElementById("protocol-li").innerHTML = "Protocolo utilizado: " + window.location.protocol;
@@ -43,8 +44,8 @@ function newWindowOnLoad() {
     data = `<ul>
         <li>Buenos días ${full_name}</li>
         <li>Tu nombre tiene ${full_name.length} caracteres, incluidos espacios.</li>
-        <li>La primera letra A de tu nombre está en la posición: ${full_name.indexOf('A')}</li>
-        <li>La última letra A de tu nombre está en la posición: ${full_name.lastIndexOf('A')}</li>
+        <li>La primera letra A de tu nombre está en la posición: ${full_name.indexOf('A') + 1}</li>
+        <li>La última letra A de tu nombre está en la posición: ${full_name.lastIndexOf('A') + 1}</li>
         <li>Tu nombre menos las 3 primeras letras es: ${full_name.substring(3)}</li>
         <li>Tu nombre todo en mayúsculas es: ${full_name.toUpperCase()}</li>
         <li>Tu edad es: ${calcAge(birth_date)} años.</li>
