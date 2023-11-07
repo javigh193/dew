@@ -29,7 +29,7 @@ class Edificio {
         this.codigo_postal = codigo;
     }
     imprimeCalle() {
-        console.log(`La calle del ${this} edificio es: ${this.calle}`);
+        console.log(`La calle del edificio es: ${this.calle}`);
     }
     imprimeNumero() {
         console.log(`El número del edificio es: ${this.numero}`);
