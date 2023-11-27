@@ -1,7 +1,7 @@
 window.onload = function() {
-    document.getElementById('left').addEventListener('keydown', leftSlide);
+    document.addEventListener('keydown', leftSlide);
     document.getElementById('left').addEventListener('click', leftSlide);
-    document.getElementById('right').addEventListener('keydown', rightSlide);
+    document.addEventListener('keydown', rightSlide);
     document.getElementById('right').addEventListener('click', rightSlide);
     for (let i = 0; i < document.images.length; i++) {
         document.images.item(i).addEventListener('click', focusImg);
