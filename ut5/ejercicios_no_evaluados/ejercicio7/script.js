@@ -1,18 +1,14 @@
 window.onload = function() {
-    document.addEventListener("mousemove", reaction);         
+    for (let i = 0; i < document.links.length; i++) {
+        document.links.item(i).addEventListener('click', reaction);
+    }
 }
 
 function reaction(e) {
-    switch (e.type) {
-        case 'click':
-            document.getElementById('mouse-clicked').innerHTML = '¡Se ha pulsado el ratón!';
-            break;
-        case 'keydown':
-            document.getElementById('last-key').innerHTML = `Se ha pulsado la tecla ${e.key}`;
-            break;
-        case 'mousemove':
-            [x, y] = [e.clientX, e.clientY];
-            document.getElementById('coordinates').innerHTML = `x:${x}, y:${y}`;
-            break;
+    e.preventDefault();
+    for (let i = 0; i < document.links.length; i++) {
+        if (e.target === document.links.item(i)) {
+            alert(`Se ha hecho click en ${this.textContent}`);
+        }
     }
 }
