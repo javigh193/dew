@@ -5,10 +5,12 @@ window.onload = function () {
     document.getElementById('enviar').addEventListener('click', validateSurnames);
     document.getElementById('enviar').addEventListener('click', validateAge);
     document.getElementById('enviar').addEventListener('click', validateNIF);
+    document.getElementById('enviar').addEventListener('click', validateEmail);
+    document.getElementById('enviar').addEventListener('click', validateProvince);
 }
 
 /* expresiones regulares compiladas para ser más eficiente en su uso */
-regexNIF = new RegExp(/^\d{8}-[A-Za-z]$/); 
+regexNIF = new RegExp(/^\d{8}-[A-Za-z]$/);
 /* 
 ^ : indica que se controla cómo debe empezar la cadena de texto
 \d{8} : la barra invertida escapa el caracter 'd' para que signifique dígito, '{8}' indica que 
@@ -17,6 +19,16 @@ regexNIF = new RegExp(/^\d{8}-[A-Za-z]$/);
           tanto mayúsculas como minúsculas
 $ : el dolar indica que se controla cómo debe terminar la cadena
 */
+regexEmail =  new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
+/*
+^ : indica que se controla cómo debe empezar la cadena de texto
+\d{8} : la barra invertida escapa el caracter 'd' para que signifique dígito, '{8}' indica que 
+        se esperan 8 elementos del tipo indicado anteriormente, en este caso dígitos
+[A-Za-z]: indica que se espera un caracter alfabético comprendido entre la 'a' y la 'z', valiendo
+          tanto mayúsculas como minúsculas
+$ : el dolar indica que se controla cómo debe terminar la cadena
+*/
+regexDate =  new RegExp(/(^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$)|(^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$)/);
 
 function toUpperOnBlur(event) {
     let element = event.target
@@ -78,3 +90,50 @@ function validateNIF(event) {
     }
     event.preventDefault();
 }
+
+function validateEmail(event) {
+    let element = document.getElementById('email');
+    let email = element.value;
+    if (email === '') {
+        let err_div = document.getElementById('errores');
+        err_div.style.padding = '5px';
+        err_div.innerHTML = 'El email es un campo obligatorio, por favor, introduzca un email.';
+        element.focus();
+    } else if ( !regexEmail.test(email) ) {
+        let err_div = document.getElementById('errores');
+        err_div.style.padding = '5px';
+        err_div.innerHTML = 'El email introducido no es válido, por favor, introduzca un email válido.';
+        element.focus();
+    }
+    event.preventDefault();
+}
+
+function validateProvince(event) {
+    let element = document.getElementById('provincia');
+    if (element.selectedIndex === 0) {
+        let err_div = document.getElementById('errores');
+        err_div.style.padding = '5px';
+        err_div.innerHTML = 'Debe seleccionar una provincia.';
+        element.focus();
+    }
+    event.preventDefault();
+}
+
+function validateDate(event) {
+    let element = document.getElementById('fecha');
+    let date = element.value;
+    if (date === '') {
+        let err_div = document.getElementById('errores');
+        err_div.style.padding = '5px';
+        err_div.innerHTML = 'La fecha es un campo obligatorio, por favor, introduzca una fecha.';
+        element.focus();
+    } else if ( !regexDate.test(date) ) {
+        let err_div = document.getElementById('errores');
+        err_div.style.padding = '5px';
+        err_div.innerHTML = 'La fecha introducida no es válida, por favor, introduzca una fecha válida.';
+        element.focus();
+    }
+    event.preventDefault();
+}
+
+
