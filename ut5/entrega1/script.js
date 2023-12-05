@@ -1,3 +1,8 @@
+/* Aunque se podría llamar a cada función por separado, he optado por asociar todos los escuchadores
+al botón 'enviar' para realizar todas las comprobaciones en el momento del envío, ya que al poner el
+foco en un campo que está mal cumplimentado se dan comportamientos que no me parecían agradables al
+usuario a la hora de interactuar con los inputs */
+
 window.onload = function () {
     document.getElementById('nombre').addEventListener('blur', toUpperOnBlur);
     document.getElementById('apellidos').addEventListener('blur', toUpperOnBlur);
@@ -9,7 +14,9 @@ window.onload = function () {
     document.getElementById('enviar').addEventListener('click', validateProvince);
 }
 
-/* expresiones regulares compiladas para ser más eficiente en su uso */
+/* Expresiones regulares compiladas para ser más eficiente en su uso múltiples veces al 
+intentar varios envíos de formulario.
+
 regexNIF = new RegExp(/^\d{8}-[A-Za-z]$/);
 /* 
 ^ : indica que se controla cómo debe empezar la cadena de texto
@@ -22,13 +29,35 @@ $ : el dolar indica que se controla cómo debe terminar la cadena
 regexEmail =  new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
 /*
 ^ : indica que se controla cómo debe empezar la cadena de texto
-\d{8} : la barra invertida escapa el caracter 'd' para que signifique dígito, '{8}' indica que 
-        se esperan 8 elementos del tipo indicado anteriormente, en este caso dígitos
-[A-Za-z]: indica que se espera un caracter alfabético comprendido entre la 'a' y la 'z', valiendo
-          tanto mayúsculas como minúsculas
+[a-zA-Z0-9._-]+ : cualquier combinación de los caracteres entre corchetes aparecerá 1 o más veces,
+                  1 o más veces por el uso de '+'
+@ : se espera que aparezca una arroba en la posición indicada
+\. : se espera un punto, se usa '\' para escapar el caracter ya que tiene un significado especial que 
+     que no se está utilizando en este caso
+[a-zA-Z]{2,4} : cualquier combinación de entre 2 y 4 caracteres de entre los indicados entre corchetes
 $ : el dolar indica que se controla cómo debe terminar la cadena
 */
 regexDate =  new RegExp(/(^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$)|(^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$)/);
+/*
+Antes de nada aclarar que esta expresión regular admite fechas erróneas, bien por tener un mes más días de
+los que le corresponden, bien por no tener en cuenta los años bisiestos de nuestro calendario.
+
+En un primer nivel, se establecen dos posibles patrones, uno para DD/MM/AAAA y otro para AAAA/MM/DD, siendo
+válido el uso de diferentes separadores, no solo '/'.
+
+^ : se controla cómo se inicia la cadena
+(0?[1-9]|[12][0-9]|3[01]) : se agrupan tres posibles patrones, con que uno de ellos se cumpla se dará
+                            por emparejada esa parte de la cadena evaluada : 
+                                0?[1-9] : un o ningún '0' seguido de un dígito del 1 al 9, es decir, será
+                                válido 01 a 09 al igual que 1 a 9
+                                [12][0-9] : 1 o 2, seguido de un dígito del 0 al 9, es decir, de 10 a 29
+                                3[01] : 3 seguido de 0 o 1, es decir, 30 o 31
+[\/\-] : cualquiera de los caracteres entre corchetes, 1 vez, a modo de separación entre día y mes
+(0?[1-9]|1[012]) : similar al caso ya explicado, valida que el mes esté entre 01 y 12, aceptando 1, 2, ..., 9
+\d{4} : 4 dígitos que representan el año entre 0000 y 9999
+$ : se controla cómo termina la cadena
+*/
+
 
 function toUpperOnBlur(event) {
     let element = event.target
