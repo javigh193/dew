@@ -16,13 +16,15 @@ window.onload = function () {
     document.getElementById('enviar').addEventListener('click', validateTelNumber);
     document.getElementById('enviar').addEventListener('click', validateTime);
     document.getElementById('enviar').addEventListener('click', increaseCounter);
+    // Se captura el evento de confirmación de formulario para dejar que burbujeen primero las validaciones
     document.getElementById('enviar').addEventListener('click', submitConfirm, true);
 }
 
 /* Expresiones regulares compiladas para ser más eficiente en su uso múltiples veces al 
 intentar varios envíos de formulario.
+*/
 
-regexNIF = new RegExp(/^\d{8}-[A-Za-z]$/);
+regexNIF = /^\d{8}-[A-Za-z]$/;
 /* 
 ^ : indica que se controla cómo debe empezar la cadena de texto
 \d{8} : la barra invertida escapa el caracter 'd' para que signifique dígito, '{8}' indica que 
@@ -31,7 +33,8 @@ regexNIF = new RegExp(/^\d{8}-[A-Za-z]$/);
           tanto mayúsculas como minúsculas
 $ : el dolar indica que se controla cómo debe terminar la cadena
 */
-regexEmail =  new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
+
+regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 /*
 ^ : indica que se controla cómo debe empezar la cadena de texto
 [a-zA-Z0-9._-]+ : cualquier combinación de los caracteres entre corchetes aparecerá 1 o más veces,
@@ -42,7 +45,8 @@ regexEmail =  new RegExp(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/);
 [a-zA-Z]{2,4} : cualquier combinación de entre 2 y 4 caracteres de entre los indicados entre corchetes
 $ : el dolar indica que se controla cómo debe terminar la cadena
 */
-regexDate =  new RegExp(/(^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$)|(^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$)/);
+
+regexDate = /(^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$)|(^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$)/;
 /*
 Antes de nada aclarar que esta expresión regular admite fechas erróneas, bien por tener un mes más días de
 los que le corresponden, bien por no tener en cuenta los años bisiestos de nuestro calendario.
@@ -63,9 +67,10 @@ válido el uso de diferentes separadores, no solo '/'.
 $ : se controla cómo termina la cadena
 */
 
-regexTelNum = new RegExp(/^\d{9}$/);
+regexTelNum = /^\d{9}$/;
 /* la cadena debe estar formada por exactamente 9 dígitos */ 
-regexTime = new RegExp(/^([01][0-9]|[2][0-3]):[0-5][0-9]$/);
+
+regexTime = /^([01][0-9]|[2][0-3]):[0-5][0-9]$/;
 /*
 La cadena de texto debe empezar por combinaciones de dos dígitos que formen los números de 
 '00' a '23', seguidas de ':' y terminar en combinaciones de dos dígitos que formen los números
@@ -76,6 +81,7 @@ La cadena de texto debe empezar por combinaciones de dos dígitos que formen los
 
 document.cookie = "try_num=" + encodeURIComponent(0);
 
+/* Funciones */
 
 function toUpperOnBlur(event) {
     let element = event.target;
