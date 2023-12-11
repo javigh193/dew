@@ -140,8 +140,7 @@ class Game {
         this.drawScore();
         this.drawLives();
         this.collisionDetection();
-        if (this.ball.x + this.ball.dx > this.canvas.width - this.ball.radius ||
-            this.ball.x + this.ball.dx < this.ball.radius) {
+        if (this.ball.x + this.ball.dx > this.canvas.width - this.ball.radius || this.ball.x + this.ball.dx < this.ball.radius) {
             this.ball.dx = -this.ball.dx;
         }
         if (this.ball.y + this.ball.dy < this.ball.radius) {
@@ -152,50 +151,52 @@ class Game {
             } else {
                 this.lives--;
                 if (!this.lives) {
-        alert("¡JUEGO TERMINADO!");
-        window.location.reload();
-        } else {
-        this.ball.x = this.canvas.width / 2;
-        this.ball.y = this.canvas.height - 30;
-        this.ball.dx = 2;
-        this.ball.dy = -2;
-        this.paddle.x = (this.canvas.width - this.paddle.width) / 2;
-        }
-        }
+                    alert("¡JUEGO TERMINADO!");
+                    window.location.reload();
+                } else {
+                    this.ball.x = this.canvas.width / 2;
+                    this.ball.y = this.canvas.height - 30;
+                    this.ball.dx = 2;
+                    this.ball.dy = -2;
+                    this.paddle.x = (this.canvas.width - this.paddle.width) / 2;
+                }
+            }
         }
         if (this.rightPressed && this.paddle.x < this.canvas.width - this.paddle.width) {
-        this.paddle.x += 7;
+            this.paddle.x += 7;
         } else if (this.leftPressed && this.paddle.x > 0) {
-        this.paddle.x -= 7;
+            this.paddle.x -= 7;
         }
         this.ball.x += this.ball.dx;
         this.ball.y += this.ball.dy;
-        }
+    }
     
     // Método para dibujar los ladrillos en el lienzo
-drawBricks() {
-    for (let c = 0; c < 5; c++) {
-        for (let r = 0; r < 3; r++) {
-            if (this.bricks[c][r].status === 1) {
-            this.bricks[c][r].draw();
+    drawBricks() {
+        for (let c = 0; c < 5; c++) {
+            for (let r = 0; r < 3; r++) {
+                if (this.bricks[c][r].status === 1) {
+                this.bricks[c][r].draw();
+                }
             }
         }
     }
-}
 
     // Método para dibujar la puntuación en el lienzo
-drawScore() {
-    this.ctx.font = "16px Arial";
-    this.ctx.fillStyle = "#0095DD";
-    this.ctx.fillText("Puntuación: " + this.score, 8, 20);
-}
+    drawScore() {
+        this.ctx.font = "16px Arial";
+        this.ctx.fillStyle = "#0095DD";
+        this.ctx.fillText("Puntuación: " + this.score, 8, 20);
+    }
+
     // Método para dibujar las vidas restantes en el lienzo
     drawLives() {
-    this.ctx.font = "16px Arial";
-    this.ctx.fillStyle = "#0095DD";
-    this.ctx.fillText("Vidas: " + this.lives, this.canvas.width - 65, 20);
+        this.ctx.font = "16px Arial";
+        this.ctx.fillStyle = "#0095DD";
+        this.ctx.fillText("Vidas: " + this.lives, this.canvas.width - 65, 20);
     }
-    }
-    // Crear instancia del juego
-    let game = new Game("myCanvas");
+}
+
+// Crear instancia del juego
+let game = new Game("myCanvas");
 
