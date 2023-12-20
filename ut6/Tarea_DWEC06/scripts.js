@@ -23,8 +23,8 @@ function toggleBrush(){
 function new_cell(){
     cell = document.createElement("div");
     cell.classList.add("cell", "color6");
-    cell.addEventListener('click', toggleBrush);
-    cell.addEventListener('mouseover', colorCell);
+    cell.addEventListener("click", toggleBrush);
+    cell.addEventListener("mouseover", colorCell);
     return cell;
 }
 
@@ -46,13 +46,22 @@ function new_canvas(cols, rows){
 new_canvas(30, 30);
 
 // Función que cambia el color seleccionado
-
 function selectColor() {
-    let classes = this.classList.value.split(' ');
-    if (!classes.includes('seleccionado')) {
-        document.querySelector('.seleccionado').classList.remove('seleccionado');
-        this.classList.add('seleccionado');
+    let classes = this.classList.value.split(" ");
+    if (!classes.includes("seleccionado")) {
+        document.querySelector(".seleccionado").classList.remove("seleccionado");
+        this.classList.add("seleccionado");
     }
 }
 
-document.querySelectorAll('[class^=color]').forEach(element => {element.addEventListener('click', selectColor)});
+document.querySelectorAll("[class^=color]").forEach(element => {element.addEventListener("click", selectColor)});
+
+// Función que "borra" el lienzo
+function cleanCanvas() {
+    document.querySelectorAll(".cell").forEach( element => {
+        element.classList.remove(...this.classList);
+        element.classList.add("color6", "cell");
+    });
+}
+
+document.getElementById("clean-canvas").addEventListener("click", cleanCanvas);

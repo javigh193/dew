@@ -68,3 +68,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+#clean-canvas {
+    margin-top: 6px;
+}
